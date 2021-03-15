@@ -67,8 +67,8 @@ GAME_OVER_FX = pygame.mixer.Sound('sounds/game_over.wav')
 GAME_OVER_FX.set_volume(0.5)
 
 # Music
-pygame.mixer.music.load('sounds/music.wav')
-pygame.mixer.music.play(-1, 0.0, 5000)
+# pygame.mixer.music.load('sounds/music.wav')
+# pygame.mixer.music.play(-1, 0.0, 5000)
 
 # Tile settings
 TILE_SIZE = 50
@@ -563,7 +563,7 @@ class Button:
 # Game is on
 def platform_game():
     level = 1
-    max_levels = 1
+    max_levels = 6
 
     def load_level():
         # Load level data
