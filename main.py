@@ -576,8 +576,9 @@ class Button:
 
 # Game is on
 def platform_game():
-    level = 1
+    level = 10
     max_levels = 10
+    health = 50
 
     def load_level():
         # Load level data
@@ -597,7 +598,7 @@ def platform_game():
 
     world = World(load_level())
 
-    player = Player(starting_pos[0], starting_pos[1], health=1)
+    player = Player(starting_pos[0], starting_pos[1], health=health)
 
     restart_btn = Button(WIDTH // 2 - RESTART.get_width() // 2, HEIGHT // 2 + 100, RESTART)
 
