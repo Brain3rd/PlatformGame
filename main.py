@@ -576,9 +576,9 @@ class Button:
 
 # Game is on
 def platform_game():
-    level = 10
+    level = 1
     max_levels = 10
-    health = 50
+    health = 1
 
     def load_level():
         # Load level data
