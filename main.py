@@ -577,7 +577,7 @@ class Button:
 # Game is on
 def platform_game():
     level = 1
-    max_levels = 6
+    max_levels = 10
 
     def load_level():
         # Load level data
@@ -705,10 +705,10 @@ def platform_game():
 
         # Go to next level
         if player.collided(world.door_group):
-            level += 1
-            if level > max_levels:
+            if level == max_levels:
                 finish = True
             else:
+                level += 1
                 world = World(load_level())
                 player.rect.x = starting_pos[0]
                 player.rect.y = starting_pos[1]
