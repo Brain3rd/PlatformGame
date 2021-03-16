@@ -1,6 +1,7 @@
 import pygame
 import random
 import pickle
+import sys
 
 pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.mixer.init()
@@ -122,17 +123,24 @@ class World:
                     flower = Flower(columns * TILE_SIZE + TILE_SIZE // 2, rows * TILE_SIZE + TILE_SIZE - 8)
                     self.flower_group.add(flower)
                 if tile == 7:
+                    # Tile move x axis
                     platform = Platform(columns * TILE_SIZE, rows * TILE_SIZE, True, False)
                     self.platform_group.add(platform)
                 if tile == 8:
+                    # Tile move y axis
                     platform = Platform(columns * TILE_SIZE, rows * TILE_SIZE, False, True)
                     self.platform_group.add(platform)
                 if tile == 9:
-                    fly = Fly(columns * TILE_SIZE + 20, rows * TILE_SIZE + 20)
+                    # Fly move x axis
+                    fly = Fly(columns * TILE_SIZE + 20, rows * TILE_SIZE + 20, True, False)
                     self.fly_group.add(fly)
                 if tile == 10:
                     door = Door(columns * TILE_SIZE, rows * TILE_SIZE)
                     self.door_group.add(door)
+                if tile == 11:
+                    # Fly move y axis
+                    fly = Fly(columns * TILE_SIZE + 20, rows * TILE_SIZE + 20, False, True)
+                    self.fly_group.add(fly)
                 columns += 1
             rows += 1
 
@@ -443,7 +451,7 @@ class Worm(pygame.sprite.Sprite):
 
 
 class Fly(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, move_x, move_y):
         pygame.sprite.Sprite.__init__(self)
         # Images
         self.fly_right = []
@@ -466,11 +474,17 @@ class Fly(pygame.sprite.Sprite):
         self.counter = 0
         self.turning_point = 50
         self.animation_delay = 10
+        self.move_x = move_x
+        self.move_y = move_y
 
     def update(self):
-        self.rect.x += self.move_direction
         self.move_counter += 1
         self.counter += 1
+
+        if self.move_x:
+            self.rect.x += self.move_direction
+        if self.move_y:
+            self.rect.y += self.move_direction
 
         # Change direction
         if abs(self.move_counter > self.turning_point):
@@ -718,7 +732,8 @@ def platform_game():
         # Close window
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                quit()
+                pygame.quit()
+                sys.exit()
 
 
 def main_menu():
@@ -767,7 +782,8 @@ def main_menu():
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                quit()
+                pygame.quit()
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 platform_game()
 
